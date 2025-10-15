@@ -1,0 +1,39 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "debug",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-out",
+        "address": "https://8.8.8.8/dns-query"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "listen_port": 8080,
+      "type": "mixed",
+      "tag": "mixed-in",
+      "set_system_proxy": true
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "shadowsocks",
+      "tag": "proxy-b",
+      "server": "127.0.0.1",
+      "server_port": 8787,
+      "password": "0fbf4f81-2598-4b6a-a623-0ead4cb9efa8",
+      "method": "none",
+      "plugin": "v2ray-plugin",
+      "plugin_opts": "mux=0;mode=websocket;path=/217.195.200.52-80;host=127.0.0.1"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ]
+}
