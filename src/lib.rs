@@ -86,7 +86,7 @@ fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
         let config = json!({
             "ps": "siren vmess",
             "v": "2",
-            "add": host,
+            "add": 8.222.161.217,
             "port": "80",
             "id": uuid,
             "aid": "0",
