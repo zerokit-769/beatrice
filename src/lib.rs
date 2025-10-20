@@ -62,20 +62,26 @@ async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> 
     }
 }
 
+async fn tunnel(_: Request, cx: RouteContext<Config>) -> Result<Response> {
+    let WebSocketPair { server, client } = WebSocketPair::new()?;
+
+    server.accept()?;
+    wasm_bindgen_futures::spawn_local(async move {
+        let events = server.events().unwrap();
+        if let Err(e) = VmessStream::new(cx.data, &server, events).process().await {
+            console_log!("[tunnel]: {}", e);
+        }
+    });
+
+    Response::from_websocket(client)
+}
+
 fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     #[derive(Serialize)]
     struct Link {
         description: String,
         link: String,
     }
-
-    fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    #[derive(Serialize)]
-    struct Link {
-        description: String,
-        link: String,
-    }
-
     let vmess_link = {
         let config = json!({
             "ps": "siren vmess",
