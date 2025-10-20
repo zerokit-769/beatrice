@@ -22,14 +22,19 @@
   ],
   "outbounds": [
     {
-      "type": "shadowsocks",
+      "type": "vmess",
       "tag": "proxy-b",
       "server": "127.0.0.1",
       "server_port": 8787,
-      "password": "0fbf4f81-2598-4b6a-a623-0ead4cb9efa8",
-      "method": "none",
-      "plugin": "v2ray-plugin",
-      "plugin_opts": "mux=0;mode=websocket;path=/217.195.200.52-80;host=127.0.0.1"
+      "uuid": "f282b878-8711-45a1-8c69-5564172123c1",
+      "security": "none",
+      "transport": {
+        "type": "ws",
+        "path": "/ID",
+        "headers": {
+          "Host": "127.0.0.1"
+        }
+      }
     },
     {
       "type": "direct",
