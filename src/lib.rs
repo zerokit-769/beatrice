@@ -70,8 +70,11 @@ fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     }
 
     fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    let host = cx.data.host.to_string();
-    let uuid = cx.data.uuid.to_string();
+    #[derive(Serialize)]
+    struct Link {
+        description: String,
+        link: String,
+    }
 
     let vmess_link = {
         let config = json!({
